@@ -11,25 +11,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN Config for System Dark Mode -->
+  <script>
+    tailwind = {
+      darkMode: 'media'
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #09090b !important;
+        color: #ffffff !important;
+      }
+    }
+    @media (prefers-color-scheme: light) {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+    }
     html {
       font-size: 17px;
     }
     body {
       font-family: 'Jost', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 1rem;
-      background-color: #ffffff;
-      color: #000000;
       -webkit-font-smoothing: antialiased;
-    }
-    .dark body {
-      background-color: #09090b;
-      color: #ffffff;
     }
     .code-box {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -450,6 +461,11 @@
   </footer>
 
   <script>
+    // System Dark Mode Detection for Chart.js
+    const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const textColor = isDarkMode ? '#f4f4f5' : '#18181b';
+    const gridColor = isDarkMode ? '#27272a' : '#e4e4e7';
+
     // Initialize Benchmark Chart
     const ctx = document.getElementById('fpsChart').getContext('2d');
     new Chart(ctx, {
@@ -460,17 +476,17 @@
           {
             label: 'Native Linux',
             data: [60.0, 142.0, 128.0, 115.0],
-            backgroundColor: '#52525b'
+            backgroundColor: isDarkMode ? '#71717a' : '#52525b'
           },
           {
             label: 'Baseline KVM',
             data: [58.5, 131.0, 116.0, 104.0],
-            backgroundColor: '#a1a1aa'
+            backgroundColor: isDarkMode ? '#3f3f46' : '#a1a1aa'
           },
           {
             label: 'Tirith (pVM)',
             data: [59.8, 135.5, 120.1, 110.5],
-            backgroundColor: '#dc2626'
+            backgroundColor: '#ef4444'
           }
         ]
       },
@@ -482,19 +498,21 @@
             position: 'top',
             labels: {
               boxWidth: 12,
-              color: '#18181b',
+              color: textColor,
               font: { size: 12, weight: 'bold' }
             }
           }
         },
         scales: {
           x: {
-            ticks: { color: '#18181b', font: { weight: 'bold' } }
+            ticks: { color: textColor, font: { weight: 'bold' } },
+            grid: { color: gridColor }
           },
           y: {
             beginAtZero: true,
-            ticks: { color: '#18181b' },
-            title: { display: true, text: 'FPS', color: '#18181b', font: { size: 12, weight: 'bold' } }
+            ticks: { color: textColor },
+            grid: { color: gridColor },
+            title: { display: true, text: 'FPS', color: textColor, font: { size: 12, weight: 'bold' } }
           }
         }
       }
