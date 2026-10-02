@@ -20,6 +20,11 @@
     html {
       font-size: 17px;
     }
+    @media (max-width: 640px) {
+      html {
+        font-size: 15px;
+      }
+    }
     body {
       font-family: 'Jost', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 1rem;
@@ -422,7 +427,7 @@
       </div>
 
       <div class="p-4 rounded-md bg-zinc-900 text-zinc-100 code-box text-xs leading-relaxed overflow-x-auto">
-<pre id="bibtexText">@inproceedings{narayanan2026tirith,
+<pre id="bibtexText" class="whitespace-pre-wrap break-words">@inproceedings{narayanan2026tirith,
   author    = {Santosh Gokul Narayanan and Giovanni Paladino and Chuqi Zhang and Sangho Lee and Zhenkai Liang and Adil Ahmad},
   title     = {You Shall Not Pass into Ring-0! A User Privacy-Friendly Anti-Cheat Architecture for Personal Computers},
   booktitle = {Proceedings of the 2026 ACM SIGSAC Conference on Computer and Communications Security (CCS '26)},
